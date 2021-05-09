@@ -88,10 +88,12 @@ def q10
   foods = %w(いか たこ うに しゃけ うにぎり うに軍艦 うに丼)
 
   # 以下に回答を記載
-  if foods.include?("うに")
-    puts "好物です"
-  else
-    puts "まぁまぁ好きです"
+  foods.each do |food|
+    if food.include?("うに")
+      puts "#{food}: 好物です"
+    else
+      puts "#{food}: まぁまぁ好きです"
+    end
   end
 end
 
@@ -133,16 +135,9 @@ def q15
   data2 = { name: "yamada", hobby: "baseball", role: "normal" }
 
   # 以下に回答を記載
-  if data1.key?(:age)
-    puts "OK"
-  else
-    puts "NG"
-  end
-  if data2.key?(:age)
-    puts "OK"
-  else
-    puts "NG"
-  end 
+  puts data1.key?(:age) ? "OK" : "NG"
+  puts data2.key?(:age) ? "OK" : "NG"
+
 end
 
 def q16
@@ -161,7 +156,20 @@ end
 
 class UserQ17
   # 以下に回答を記載
+  
+  def initialize(name:,age:,gender:)
+    @name = name
+    @age = age
+    @gender = gender
+  end
 
+  def info
+    puts <<~TEXT
+    名前:#{@name} 
+    年齢:#{@age}
+    性別:#{@gender}
+    TEXT
+  end
 end
 
 def q17
@@ -176,7 +184,18 @@ end
 
 class UserQ18
   # 以下に回答を記載
+  def initialize(name:, age:)
+    @name = name
+    @age = age
+  end
 
+  def introduce
+    if @age == 32
+      "こんにちは,#{@name}と申します。宜しくお願いいたします。"
+    elsif @age == 10
+      "はいさいまいど〜,#{@name}です!!!"
+    end
+  end
 end
 
 def q18
@@ -191,7 +210,8 @@ end
 class Item
   # 以下を修正して下さい
 
-  def initialize(name)
+  attr_accessor :name
+  def initialize(name:)
     @name = name
   end
 end
@@ -204,12 +224,32 @@ end
 
 class UserQ20
   # 以下に回答を記載
-
+  attr_accessor :name, :age
+  def initialize(name:, age:)
+    @name = name
+    @age = age
+  end
 end
 
 class Zoo
   # 以下に回答を記載
+  def initialize(name:, entry_fee:)
+    @name = name
+    @entry_fee = entry_fee
+  end
 
+  def info_entry_fee(user)
+    case user.age
+    when 0..5
+      puts "#{user.name}さんの入場料金は #{@entry_fee[:infant]} 円です。"
+    when 6..12
+      puts "#{user.name}さんの入場料金は #{@entry_fee[:children]} 円です。"
+    when 13..64
+      puts "#{user.name}さんの入場料金は #{@entry_fee[:adult]} 円です。"
+    when 65..120
+      puts "#{user.name}さんの入場料金は #{@entry_fee[:senior]} 円です。"
+    end
+  end
 end
 
 
